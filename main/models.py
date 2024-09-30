@@ -51,43 +51,49 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email
 '''
-    
-class User(models.Model):
- 
-    def __str__(self):
-        return self.name
+
 
 class Dojo(models.Model):
- 
-    def __str__(self):
-        return self.name
+    name = models.CharField(max_length=200)
+    address = models.CharField(max_length=200)
+    phone_number = models.CharField(max_length=200)
+    introduction = models.CharField(max_length=200)
+    picture = 
+    mailaddress = models.CharField(max_length=200)
 
-class Ivent(models.Model):
- 
-    def __str__(self):
-        return self.name
+class Event(models.Model):
+    name = models.CharField(max_length=200)
+    date = models.CharField(max_length=200)
+    place = models.CharField(max_length=200)
+    teachername = models.CharField(max_length=200)
+    DojoID = 
+    contents = models.CharField(max_length=200)
     
-class IvebtJoin(models.Model):
- 
-    def __str__(self):
-        return self.name
+class EvebtJoin(models.Model):
+    UserID = 
+    EventID =
+    status = 
+    reservationdate = models.CharField(max_length=200)
+    canceldate = models.CharField(max_length=200)
+    updatedate = models.CharField(max_length=200)
     
 class Favorite(models.Model):
- 
-    def __str__(self):
-        return self.name
+    UserID = 
+    EventID =
     
 class PracticeRecord(models.Model):
- 
-    def __str__(self):
-        return self.name
+    UserID = 
+    RankID = 
+    practicedate = models.CharField(max_length=200)
+    practicecontents = models.CharField(max_length=200)
+    updatedate = models.CharField(max_length=200)
 
 class ExaminationResult(models.Model):
- 
-    def __str__(self):
-        return self.name
+    UserID = 
+    RankID = models.CharField(max_length=200)
+    result = models.CharField(max_length=200)
+    examinationdate = models.CharField(max_length=200)
+    updatedate = models.CharField(max_length=200)
 
 class Rank(models.Model):
- 
-    def __str__(self):
-        return self.name
+    RankID = models.CharField(max_length=200)
