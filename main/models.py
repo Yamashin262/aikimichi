@@ -58,7 +58,7 @@ class Dojo(models.Model):
     address = models.CharField(max_length=200)
     phone_number = models.CharField(max_length=200)
     introduction = models.CharField(max_length=200)
-    picture = 
+    picture = models.CharField(max_length=200)
     mailaddress = models.CharField(max_length=200)
 
 class Event(models.Model):
@@ -66,30 +66,30 @@ class Event(models.Model):
     date = models.CharField(max_length=200)
     place = models.CharField(max_length=200)
     teachername = models.CharField(max_length=200)
-    DojoID = 
+    DojoID = models.CharField(max_length=200)
     contents = models.CharField(max_length=200)
     
 class EvebtJoin(models.Model):
-    UserID = 
-    EventID =
-    status = 
+    UserID = models.CharField(max_length=200)
+    EventID = models.CharField(max_length=200)
+    status = models.CharField(max_length=200)
     reservationdate = models.CharField(max_length=200)
     canceldate = models.CharField(max_length=200)
     updatedate = models.CharField(max_length=200)
     
 class Favorite(models.Model):
-    UserID = 
-    EventID =
+    UserID = models.CharField(max_length=200)
+    EventID = models.CharField(max_length=200)
     
 class PracticeRecord(models.Model):
-    UserID = 
-    RankID = 
+    UserID = models.CharField(max_length=200)
+    RankID = models.CharField(max_length=200)
     practicedate = models.CharField(max_length=200)
     practicecontents = models.CharField(max_length=200)
     updatedate = models.CharField(max_length=200)
 
 class ExaminationResult(models.Model):
-    UserID = 
+    UserID = models.CharField(max_length=200)
     RankID = models.CharField(max_length=200)
     result = models.CharField(max_length=200)
     examinationdate = models.CharField(max_length=200)
