@@ -21,5 +21,5 @@ from main import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.TopView.as_view(), name="top"),
-    path('main/', views.ProductListView.as_view(), name="list"),
+    path('main/', views.EventListView.as_view(), name="list"),
 ]
