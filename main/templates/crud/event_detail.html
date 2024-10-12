@@ -1,23 +1,27 @@
 {% extends "base.html" %}
 {% load bootstrap %}
 
-{% block title %}商品詳細{% endblock %}
+{% block title %}イベント詳細{% endblock %}
 {% block content %}
-<h1>商品詳細</h1>
+<h1>イベント詳細</h1>
 <table class="table table-striped table-hover table-bordered">
     <thead>
         <tr>
-            <th>商品名</th>
-            <th>価格</th>
-            <th>カテゴリ</th>
-            <th>商品画像</th>
-            <th>商品詳細の説明</th>
+            <th>イベント名</th>
+            <th>日時</th>
+            <th>場所</th>
+            <th>指導者名</th>
+            <th>道場名</th>
+            <th>内容</th>
         </tr>
     </thead>
     <tr>
-        <td>{{ product_detail.name }}</td>
-        <td>{{ product_detail.price }} 円</td>
-        <td>{{ product_detail.category }}</td>
+        <td>{{ event_detail.name }}</td>
+        <td>{{ event_detail.date }}</td>
+        <td>{{ event_detail.place }}</td>
+        <td>{{ event_detail.teacherName }}</td>
+        <td>{{ event_detail.dojo }}</td>
+        <td>{{ event_detail.contents }}</td>
         <td><img src="{{ product_detail.img.url }}" style="width:100px height:auto;"></td>
         <td>{{ product_detail.datail }}</td>
     <br>   

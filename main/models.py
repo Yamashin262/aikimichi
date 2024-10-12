@@ -43,57 +43,60 @@ class CustomUserManager(UserManager):
  
         return self._create_user(email, username, password, **extra_fields)
 
-'''
-class CustomUser(AbstractUser):
-    pass
-    objects = CustomUserManager()
- 
-    def __str__(self):
-        return self.email
-'''
-
 
 class Dojo(models.Model):
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=40)
     address = models.CharField(max_length=200)
-    phone_number = models.CharField(max_length=200)
-    introduction = models.CharField(max_length=200)
-    picture = models.CharField(max_length=200)
-    mailaddress = models.CharField(max_length=200)
+    phone_number = models.CharField(max_length=20)
+    introduction = models.TextField()
+    picture = models.ImageField(blank=True)
+    mailaddress = models.EmailField(max_length=100)
+    
+class Rank(models.Model):
+    rank = models.CharField(max_length=10)
+
+class CustomUser(AbstractUser):
+    objects = CustomUserManager()
+    nickname = models.CharField(max_length=40)
+    gender = models.PositiveIntegerField(default=0)
+    date = models.DateField()
+    dojo = models.ForeignKey(Dojo, on_delete=models.CASCADE)
+    rank = models.ForeignKey(Rank, on_delete=models.CASCADE)
 
 class Event(models.Model):
-    name = models.CharField(max_length=200)
-    date = models.CharField(max_length=200)
+    name = models.CharField(max_length=40)
+    date = models.DateField()
     place = models.CharField(max_length=200)
-    teachername = models.CharField(max_length=200)
-    DojoID = models.CharField(max_length=200)
-    contents = models.CharField(max_length=200)
+    teachername = models.CharField(max_length=50)
+    dojo = models.ForeignKey(Dojo, on_delete=models.CASCADE)
+    contents = models.TextField()
     
-class EvebtJoin(models.Model):
-    UserID = models.CharField(max_length=200)
-    EventID = models.CharField(max_length=200)
-    status = models.CharField(max_length=200)
-    reservationdate = models.CharField(max_length=200)
-    canceldate = models.CharField(max_length=200)
-    updatedate = models.CharField(max_length=200)
+class EventJoin(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    status = models.IntegerField()
+    reservationdate = models.DateTimeField()
+    canceldate = models.DateTimeField()
+    updatedate = models.DateTimeField()
     
 class Favorite(models.Model):
-    UserID = models.CharField(max_length=200)
-    EventID = models.CharField(max_length=200)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+
+
     
 class PracticeRecord(models.Model):
-    UserID = models.CharField(max_length=200)
-    RankID = models.CharField(max_length=200)
-    practicedate = models.CharField(max_length=200)
-    practicecontents = models.CharField(max_length=200)
-    updatedate = models.CharField(max_length=200)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    rank = models.ForeignKey(Rank, on_delete=models.CASCADE)
+    practicedate = models.DateField()
+    practicecontents = models.TextField()
+    updatedate = models.DateTimeField()
 
 class ExaminationResult(models.Model):
-    UserID = models.CharField(max_length=200)
-    RankID = models.CharField(max_length=200)
-    result = models.CharField(max_length=200)
-    examinationdate = models.CharField(max_length=200)
-    updatedate = models.CharField(max_length=200)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    rank = models.ForeignKey(Rank, on_delete=models.CASCADE)
+    result = models.IntegerField()
+    examinationdate = models.DateTimeField()
+    updatedate = models.DateTimeField()
 
-class Rank(models.Model):
-    RankID = models.CharField(max_length=200)
+

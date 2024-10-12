@@ -54,6 +54,9 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware'
 ]
 
+AUTH_USER_MODEL = 'main.CustomUser'
+
+
 ROOT_URLCONF = 'aikimichi.urls'
 
 TEMPLATES = [
