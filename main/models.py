@@ -48,10 +48,10 @@ class CustomUserManager(UserManager):
 class Dojo(models.Model):
     name = models.CharField(max_length=40, verbose_name="道場名")
     address = models.CharField(max_length=200, verbose_name="住所")
-    phone_number = models.CharField(max_length=20)
-    introduction = models.TextField()
-    picture = models.ImageField(blank=True)
-    mailaddress = models.EmailField(max_length=100)
+    phone_number = models.CharField(max_length=20, verbose_name="電話番号")
+    introduction = models.TextField(verbose_name="紹介文")
+    picture = models.ImageField(blank=True, verbose_name="写真")
+    mailaddress = models.EmailField(max_length=100, verbose_name="メールアドレス")
     
     def __str__(self):
         return self.name
@@ -74,24 +74,24 @@ class CustomUser(AbstractUser):
     objects = CustomUserManager()
     nickname = models.CharField(max_length=40, verbose_name="ニックネーム")
     gender = models.PositiveIntegerField(default=0, verbose_name="性別")
-    date = models.DateField(default=date.today)
-    dojo = models.ForeignKey(Dojo, on_delete=models.CASCADE, default=1)
-    rank = models.ForeignKey(Rank, on_delete=models.CASCADE, default=1)
+    date = models.DateField(default=date.today, verbose_name="登録日")
+    dojo = models.ForeignKey(Dojo, on_delete=models.CASCADE, default=1, verbose_name="所属道場")
+    rank = models.ForeignKey(Rank, on_delete=models.CASCADE, default=1, verbose_name="登録時の階級")
     
     def __str__(self):
         return self.nickname
     
     class Meta:
-        verbose_name = "ニックネーム"
-        verbose_name_plural = "ニックネーム"
+        verbose_name = "ユーザー"
+        verbose_name_plural = "ユーザー"
 
 class Event(models.Model):
     name = models.CharField(max_length=40, verbose_name="イベント")
     date = models.DateField(verbose_name="日付")
     place = models.CharField(max_length=200, verbose_name="場所")
     teachername = models.CharField(max_length=50,verbose_name="指導者名")
-    dojo = models.ForeignKey(Dojo, on_delete=models.CASCADE)
-    contents = models.TextField()
+    dojo = models.ForeignKey(Dojo, on_delete=models.CASCADE, verbose_name="道場名")
+    contents = models.TextField(verbose_name="イベント内容")
     
     def __str__(self):
         return self.name
@@ -101,12 +101,12 @@ class Event(models.Model):
         verbose_name_plural = "イベント"
     
 class EventJoin(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name="ユーザー名")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name="イベント名")
     status = models.IntegerField(verbose_name="イベント参加情報")
-    reservationdate = models.DateTimeField()
-    canceldate = models.DateTimeField()
-    updatedate = models.DateTimeField()
+    reservationdate = models.DateTimeField(verbose_name="予約日時")
+    canceldate = models.DateTimeField(verbose_name="キャンセル日時")
+    updatedate = models.DateTimeField(verbose_name="更新日")
     
     def __str__(self):
         return self.status
@@ -116,8 +116,8 @@ class EventJoin(models.Model):
         verbose_name_plural = "イベント参加情報"
     
 class Favorite(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name="ユーザー名")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, verbose_name="イベント名")
  
     def __str__(self):
         return self.user
@@ -127,8 +127,8 @@ class Favorite(models.Model):
         verbose_name_plural = "お気に入り"
 
 class PracticeRecord(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    rank = models.ForeignKey(Rank, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name="ユーザー名")
+    rank = models.ForeignKey(Rank, on_delete=models.CASCADE, verbose_name="階級")
     practicedate = models.DateField(verbose_name="稽古日時")
     practicecontents = models.TextField(verbose_name="稽古内容")
     updatedate = models.DateTimeField(verbose_name="更新日")
@@ -141,8 +141,8 @@ class PracticeRecord(models.Model):
         verbose_name_plural = "稽古記録"
 
 class ExaminationResult(models.Model):
-    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    rank = models.ForeignKey(Rank, on_delete=models.CASCADE)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, verbose_name="ユーザー名")
+    rank = models.ForeignKey(Rank, on_delete=models.CASCADE, verbose_name="階級")
     result = models.IntegerField(verbose_name="審査結果")
     examinationdate = models.DateTimeField(verbose_name="審査日")
     updatedate = models.DateTimeField(verbose_name="更新日")
