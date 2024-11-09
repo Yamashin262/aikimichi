@@ -11,9 +11,12 @@
             <th>日時</th>
             <th>場所</th>
             <th>指導者名</th>
+            <th>道場名</th>
+            <th>内容</th>
+            <th>アクション</th>
          </tr>
      </thead>
-     {% for Event in object_list %}
+     {% for event in object_list %}
      <tr>
         <td>{{ event.name }}</td>
         <td>{{ event.date }}</td>
@@ -21,11 +24,10 @@
         <td>{{ event.teacherName }}</td>
         <td>{{ event.dojo }}</td>
         <td>{{ event.contents }}</td>
-        <td><img src="{{ product.img.url }}" style="width:100px height:auto;"></td>
         <td>
-            <button class="btn btn-success" onclick="location.href='{% url 'detail' pk=product.pk %}'">詳細</button>
-            <button class="btn btn-primary" onclick="location.href='{% url 'edit' pk=product.pk %}'">編集</button>
-            <button class="btn btn-danger" onclick="location.href='{% url 'delete' pk=product.pk %}'">削除</button>
+            <button class="btn btn-success" onclick="location.href='{% url 'detail' pk=event.pk %}'">詳細</button>
+            <button class="btn btn-primary" onclick="location.href='{% url 'edit' pk=event.pk %}'">編集</button>
+            <button class="btn btn-danger" onclick="location.href='{% url 'delete' pk=event.pk %}'">削除</button>
         </td>
      </tr>
     {% endfor %}

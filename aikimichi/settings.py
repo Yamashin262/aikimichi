@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'allauth', #allauth用
     'allauth.account', #allauth用
     'allauth.socialaccount', #allauth用
+    'bootstrapform',
 ]
 
 MIDDLEWARE = [
